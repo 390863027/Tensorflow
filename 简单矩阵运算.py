@@ -1,5 +1,6 @@
 import tensorflow as tf
-sess=tf.InteractiveSession()
+sess=tf.InteractiveSession()# tf.InteractiveSession()默认自己就是用户要操作的session，
+# 而tf.Session()没有这个默认，因此用eval()启动计算时需要指明session。
 x=tf.constant([[2,5,3,-5],
                [0,3,-2,5],
                [4,3,5,3],
