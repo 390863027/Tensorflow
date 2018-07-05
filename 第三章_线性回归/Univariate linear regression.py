@@ -27,7 +27,7 @@ Y = tf.placeholder("float", name = "Y")
 with tf.name_scope("Model"):
 
     def model(X, w, b):
-        return tf.mul(X, w) + b # We just define the line as X*w + b0  
+        return tf.multiply(X, w) + b # We just define the line as X*w + b0
 
     w = tf.Variable(-1.0, name="b0") # create a shared variable
     b = tf.Variable(-2.0, name="b1") # create a shared variable
@@ -41,12 +41,12 @@ train_op = tf.train.GradientDescentOptimizer(0.05).minimize(cost)
 
 
 sess = tf.Session()
-init = tf.initialize_all_variables()
-tf.train.write_graph(sess.graph, '/home/ubuntu/linear','graph.pbtxt')
-cost_op = tf.scalar_summary("loss", cost)
-merged = tf.merge_all_summaries()
+init = tf.global_variables_initializer()
+tf.train.write_graph(sess.graph, '/Users/maple/资料/TensorFlow机器学习/Tensorflow/第三章_线性回归','graph.pbtxt')
+cost_op = tf.summary.scalar("loss", cost)
+merged = tf.summary.merge_all()
 sess.run(init)
-writer = tf.train.SummaryWriter('/home/ubuntu/linear', sess.graph)
+writer = tf.summary.FileWriter('/Users/maple/资料/TensorFlow机器学习/Tensorflow/第三章_线性回归', sess.graph)
 
 for i in range(100):
     for (x, y) in zip(trX, trY): 

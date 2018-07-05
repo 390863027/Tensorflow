@@ -32,7 +32,7 @@ with tf.name_scope("Model"):
     b = tf.Variable(tf.random_normal([2], stddev=0.01), name="b1") # create a shared variable
     
     def model(X, w, b):
-        return tf.mul(X, w) + b # We just define the line as X*w + b0  
+        return tf.multiply(X, w) + b # We just define the line as X*w + b0
 
     y_model = model(X, w, b)
 
@@ -43,12 +43,12 @@ train_op = tf.train.AdamOptimizer(0.001).minimize(cost)
 
 
 sess = tf.Session()
-init = tf.initialize_all_variables()
-tf.train.write_graph(sess.graph, '/home/bonnin/linear2','graph.pbtxt')
-cost_op = tf.scalar_summary("loss", cost)
-merged = tf.merge_all_summaries()
+init = tf.global_variables_initializer()
+tf.train.write_graph(sess.graph, '/Users/maple/资料/TensorFlow机器学习/Tensorflow/第三章_线性回归','graph.pbtxt')
+cost_op = tf.summary.scalar("loss", cost)
+merged = tf.summary.merge_all()
 sess.run(init)
-writer = tf.train.SummaryWriter('/home/bonnin/linear2', sess.graph)
+writer = tf.summary.FileWriter('/Users/maple/资料/TensorFlow机器学习/Tensorflow/第三章_线性回归', sess.graph)
 
 xvalues = df[[df.columns[2], df.columns[4]]].values.astype(float)
 yvalues = df[df.columns[12]].values.astype(float)
